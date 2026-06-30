@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tra cứu điểm thi THPTQG 2026</title>
+<meta name="description" content="Tra cứu điểm thi tốt nghiệp THPT Quốc gia 2026 — giao diện Material Design 3" />
+<link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar__icon">🎓</div>
+    <div>
+      <div class="topbar__title">Tra cứu điểm thi THPTQG 2026</div>
+      <div class="topbar__subtitle">Hệ thống công bố kết quả kỳ thi tốt nghiệp THPT</div>
+    </div>
+  </header>
+
+  <main class="app-shell">
+
+    <!-- ============== WAITING ROOM (trước giờ công bố) ============== -->
+    <section id="waitingRoom" class="m3-card m3-card--elevated waiting">
+      <span class="waiting__eyebrow">⏳ Sắp công bố điểm</span>
+
+      <div class="waiting__countdown">
+        <div class="countdown-unit">
+          <div class="countdown-unit__value" id="cdDays">00</div>
+          <div class="countdown-unit__label">Ngày</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-unit__value" id="cdHours">00</div>
+          <div class="countdown-unit__label">Giờ</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-unit__value" id="cdMinutes">00</div>
+          <div class="countdown-unit__label">Phút</div>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-unit__value" id="cdSeconds">00</div>
+          <div class="countdown-unit__label">Giây</div>
+        </div>
+      </div>
+
+      <p class="waiting__message">Hãy đợi nhé! Chúc các bạn nhận được điểm như ước nguyện 🍀</p>
+      <p class="waiting__hint">Trang sẽ tự động mở khoá tra cứu ngay khi đến giờ công bố.</p>
+
+      <div class="clock-status" id="clockStatus">
+        <span class="clock-status__dot"></span>
+        <span id="clockStatusText">Đang đồng bộ giờ máy chủ…</span>
+      </div>
+    </section>
+
+    <!-- ============== LOOKUP FORM (sau giờ công bố) ============== -->
+    <section id="lookupSection" style="display:none;">
+
+      <div class="m3-card m3-card--elevated">
+        <h1 class="form-title">Tra cứu điểm thi</h1>
+        <p class="form-subtitle">Nhập đầy đủ thông tin và mã xác nhận để xem kết quả.</p>
+
+        <form id="lookupForm" novalidate>
+
+          <div class="field">
+            <label class="field__label" for="provinceSelect">Tỉnh / Thành phố</label>
+            <select id="provinceSelect" class="field__control" required disabled></select>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="sbdInput">Số báo danh</label>
+            <input
+              id="sbdInput"
+              class="field__control"
+              type="text"
+              inputmode="numeric"
+              maxlength="8"
+              placeholder="VD: 01000123"
+              autocomplete="off"
+              disabled
+              required
+            />
+            <div class="field__error-text" id="sbdError"></div>
+          </div>
+
+          <div class="captcha-row">
+            <div class="field">
+              <label class="field__label" for="captchaInput">Mã xác nhận</label>
+              <input
+                id="captchaInput"
+                class="field__control"
+                type="text"
+                maxlength="5"
+                placeholder="Nhập mã trong ảnh"
+                autocomplete="off"
+                disabled
+                required
+              />
+            </div>
+            <div class="captcha-canvas-wrap">
+              <canvas id="captchaCanvas" width="140" height="56"></canvas>
+            </div>
+            <button type="button" id="captchaRefresh" class="icon-btn" title="Làm mới mã" aria-label="Làm mới mã xác nhận">⟳</button>
+          </div>
+          <div class="field__error-text" id="captchaError" style="margin-top:-12px; margin-bottom: 8px;"></div>
+
+          <button type="submit" id="submitBtn" class="btn btn--filled" disabled>Tra cứu điểm thi</button>
+
+          <div class="linear-progress" id="progress">
+            <div class="linear-progress__bar"></div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Banner lỗi / không tìm thấy -->
+      <div class="banner" id="banner" style="display:none;">
+        <span class="banner__icon">⚠️</span>
+        <span id="bannerText"></span>
+      </div>
+
+      <!-- ============== RESULT CARD ============== -->
+      <div class="m3-card m3-card--elevated result-card" id="resultCard">
+        <div class="result-header">
+          <div>
+            <div class="result-header__name" id="resultName">—</div>
+            <div class="result-header__meta" id="resultMeta">—</div>
+          </div>
+          <span class="chip" id="resultChip">—</span>
+        </div>
+
+        <div class="section-label">Điểm các môn thi</div>
+        <div class="score-grid" id="scoreGrid"></div>
+
+        <div class="section-label">Tổng điểm theo khối xét tuyển</div>
+        <div class="block-list" id="blockList"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    Dữ liệu mang tính chất minh hoạ cấu trúc hệ thống.<br/>
+    Mọi thắc mắc về điểm thi chính thức vui lòng liên hệ Sở GD&ĐT địa phương.
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/clock.js"></script>
+  <script src="assets/js/captcha.js"></script>
+  <script src="assets/js/scoring.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

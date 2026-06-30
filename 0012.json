@@ -1,0 +1,32 @@
+{
+  "01001234": {
+    "hoTen": "Nguyễn Văn An",
+    "ngaySinh": "15/03/2008",
+    "diem": {
+      "toan": 8.6,
+      "van": 7.75,
+      "ngoaiNgu": 9.2,
+      "vatLy": 8.25,
+      "hoaHoc": 7.5,
+      "sinhHoc": 6.75,
+      "lichSu": null,
+      "diaLy": null,
+      "gdcd": null
+    }
+  },
+  "01001235": {
+    "hoTen": "Trần Thị Bích",
+    "ngaySinh": "02/09/2008",
+    "diem": {
+      "toan": 6.4,
+      "van": 8.5,
+      "ngoaiNgu": 7.8,
+      "vatLy": null,
+      "hoaHoc": null,
+      "sinhHoc": null,
+      "lichSu": 8.0,
+      "diaLy": 7.25,
+      "gdcd": 9.0
+    }
+  }
+}
